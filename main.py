@@ -75,25 +75,40 @@ def handle_read():
 
 def handle_update():
     print("\nUpdate Menu")
-    print("1. Update Customer Email")
-    print("2. Update Product")
-    print("3. Update Order Status")
+    print("1. Update Customer")
+    print("2. Update Supplier")
+    print("3. Update Product")
+    print("4. Update Order")
+    
     
     choice = input("Enter your choice: ")
 
     if choice == '1':
         customer_id = int(input("Enter customer ID: "))
-        new_email = input("Enter new email: ")
-        update.update_customer_email(customer_id, new_email)
+        field = input("Enter field to update (name/address/email): ").lower()
+        if field not in ["name", "address", "email"]:
+            print("Invalid field")
+            return
+        new_value = input(f"Enter new {field}: ")
+        update.update_customer(customer_id, field, new_value)
     elif choice == '2':
+        supplier_id = int(input("Enter supplier ID: "))
+        field = input("Enter field to update (name/address/email): ").lower()
+        if field not in ["name", "address", "email"]:
+            print("Invalid field")
+            return
+        new_value = input(f"Enter new {field}: ")
+        update.update_supplier(supplier_id, field, new_value)
+    elif choice == '3':
         product_id = int(input("Enter product ID: "))
         new_price = int(input("Enter new price: "))
         new_category = input("Enter category: ")
         update.update_product(product_id, new_price, new_category)
-    elif choice == '3':
+    elif choice == '4':
         order_id = int(input("Enter order ID: "))
-        new_status = input("Enter new status: ")
-        update.update_order_status(order_id, new_status)
+        field = input("Enter field to update (status/quantity): ").lower()
+        new_value = input(f"Enter new {field}")
+        update.update_order_status(order_id, field, new_value)
     else:
         print("Invalid choice. Please try again.")
 

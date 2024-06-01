@@ -18,8 +18,8 @@ def read_table(table_name):
     headings = {
         'Customer': ["customer_id", "name", "address", "email", "created_at", "updated_at"],
         'Supplier': ["supplier_id", "name", "address", "email"],
-        'Product': ["product_id", "category", "name", "supplier_id", "price", "in_stock"],
-        '`Order`': ["order_id", "customer_id", "product_id", "quantity", "amount", "status", "created_at", "updated_at"]
+        'Product': ["product_id", "supplier_id", "name", "category", "price", "in_stock"],
+        '`Order`': ["order_id", "customer_id", "product_id", "quantity", "amount", "status", "created_at", "updated_at", "shipping_date"]
     }
 
     # Print table headings

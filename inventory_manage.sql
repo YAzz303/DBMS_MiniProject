@@ -15,20 +15,25 @@ CREATE TABLE Supplier (
     supplier_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     address TEXT,
-    email VARCHAR(255) UNIQUE NOT NULL
+    email VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Create Product table
 -- @block
 CREATE TABLE Product (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
-    category VARCHAR(255) NOT NULL,
+    supplier_id INT,    
     name VARCHAR(255) NOT NULL,
-    supplier_id INT,
+    category VARCHAR(255) NOT NULL,
     price INT NOT NULL,
     in_stock INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (supplier_id) REFERENCES Supplier(supplier_id)
 );
+
 
 -- Create Order table
 -- @block
@@ -41,9 +46,12 @@ CREATE TABLE `Order` (
     status VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    shipping_date DATE,
     FOREIGN KEY (customer_id) REFERENCES Customer(customer_id),
     FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
+
+
 
 
 
