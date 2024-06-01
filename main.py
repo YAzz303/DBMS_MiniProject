@@ -1,98 +1,125 @@
-# main.py
-from insert_data import *
-from read_data import *
+import insert
+from read import read_table
+import update
+import delete
 
-def print_rows(rows):
-    for row in rows:
-        print(row)
 
 def main():
     while True:
         print("\nInventory Management System")
-        print("1. Insert Category")
-        print("2. Insert Supplier")
-        print("3. Insert Product")
-        print("4. Insert Customer")
-        print("5. Insert Order")
-        print("6. Insert Order Item")
-        print("7. Insert Stock Transaction")
-        print("8. Read Categories")
-        print("9. Read Suppliers")
-        print("10. Read Products")
-        print("11. Read Customers")
-        print("12. Read Orders")
-        print("13. Read Order Items")
-        print("14. Read Stock Transactions")
-        print("15. Exit")
-
-        choice = input("Enter choice: ")
+        print("1. Create")
+        print("2. Read")
+        print("3. Update")
+        print("4. Delete")
+        print("5. Exit")
+        
+        choice = input("Enter your choice: ")
 
         if choice == '1':
-            name = input("Enter category name: ")
-            description = input("Enter category description: ")
-            insert_category(name, description)
+            handle_create()
         elif choice == '2':
-            name = input("Enter supplier name: ")
-            city = input("Enter city: ")
-            country = input("Enter country: ")
-            phone = input("Enter phone: ")
-            email = input("Enter email: ")
-            insert_supplier(name, city, country, phone, email)
+            handle_read()
         elif choice == '3':
-            name = input("Enter product name: ")
-            category_id = int(input("Enter category ID: "))
-            supplier_id = int(input("Enter supplier ID: "))
-            price = float(input("Enter price: "))
-            quantity_in_stock = int(input("Enter quantity in stock: "))
-            insert_product(name, category_id, supplier_id, price, quantity_in_stock)
+            handle_update()
         elif choice == '4':
-            name = input("Enter customer name: ")
-            city = input("Enter city: ")
-            country = input("Enter country: ")
-            email = input("Enter email: ")
-            insert_customer(name, city, country, email)
+            handle_delete()
         elif choice == '5':
-            customer_id = int(input("Enter customer ID: "))
-            shipping_date = input("Enter shipping date (YYYY-MM-DD HH:MM:SS): ")
-            status = input("Enter status: ")
-            total_amount = float(input("Enter total amount: "))
-            insert_order(customer_id, shipping_date, status, total_amount)
-        elif choice == '6':
-            order_id = int(input("Enter order ID: "))
-            product_id = int(input("Enter product ID: "))
-            quantity = int(input("Enter quantity: "))
-            price = float(input("Enter price: "))
-            insert_order_item(order_id, product_id, quantity, price)
-        elif choice == '7':
-            product_id = int(input("Enter product ID: "))
-            transaction_type = input("Enter transaction type (in/out): ")
-            quantity = int(input("Enter quantity: "))
-            insert_stock_transaction(product_id, transaction_type, quantity)
-        elif choice == '8':
-            rows = read_categories()
-            print_rows(rows)
-        elif choice == '9':
-            rows = read_suppliers()
-            print_rows(rows)
-        elif choice == '10':
-            rows = read_products()
-            print_rows(rows)
-        elif choice == '11':
-            rows = read_customers()
-            print_rows(rows)
-        elif choice == '12':
-            rows = read_orders()
-            print_rows(rows)
-        elif choice == '13':
-            rows = read_order_items()
-            print_rows(rows)
-        elif choice == '14':
-            rows = read_stock_transactions()
-            print_rows(rows)
-        elif choice == '15':
+            print("Exiting...")
             break
         else:
             print("Invalid choice. Please try again.")
+
+def handle_create():
+    print("\nCreate Menu")
+    print("1. Create Customer")
+    print("2. Create Supplier")
+    print("3. Create Product")
+    print("4. Create Order")
+    
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        name = input("Enter customer name: ")
+        address = input("Enter customer address: ")
+        email = input("Enter customer email: ")
+        insert.insert_customer(name, address, email)
+    elif choice == '2':
+        name = input("Enter supplier name: ")
+        address = input("Enter supplier address: ")
+        email = input("Enter supplier email: ")
+        insert.insert_supplier(name, address, email)
+    elif choice == '3':
+        category = input("Enter product category: ")
+        name = input("Enter product name: ")
+        supplier_id = int(input("Enter supplier ID: "))
+        price = int(input("Enter product price: "))
+        in_stock = int(input("Enter quantity in stock: "))
+        insert.insert_product(category, name, supplier_id, price, in_stock)
+    elif choice == '4':
+        customer_id = int(input("Enter customer ID: "))
+        product_id = int(input("Enter product ID: "))
+        quantity = int(input("Enter quantity: "))
+        status = input("Enter order status: ")
+        shipping_date = input("Enter shipping date (YYYY-MM-DD HH:MM:SS) or leave empty: ")
+        if shipping_date == "":
+            shipping_date = None
+        print(customer_id, product_id, quantity, status, shipping_date)
+        insert.insert_order(customer_id, product_id, quantity, status, shipping_date)
+    else:
+        print("Invalid choice. Please try again.")
+
+def handle_read():
+    print('Tables avalaible: Customer   Supplier   Product   `Order`\n')
+    table_name = input('Enter the table name to read from: ')
+    read_table(table_name)
+
+def handle_update():
+    print("\nUpdate Menu")
+    print("1. Update Customer Email")
+    print("2. Update Product")
+    print("3. Update Order Status")
+    
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        customer_id = int(input("Enter customer ID: "))
+        new_email = input("Enter new email: ")
+        update.update_customer_email(customer_id, new_email)
+    elif choice == '2':
+        product_id = int(input("Enter product ID: "))
+        new_price = int(input("Enter new price: "))
+        new_category = input("Enter category: ")
+        update.update_product(product_id, new_price, new_category)
+    elif choice == '3':
+        order_id = int(input("Enter order ID: "))
+        new_status = input("Enter new status: ")
+        update.update_order_status(order_id, new_status)
+    else:
+        print("Invalid choice. Please try again.")
+
+def handle_delete():
+    print("\nDelete Menu")
+    print("1. Delete Customer")
+    print("2. Delete Supplier")
+    print("3. Delete Product")
+    print("4. Delete Order")
+    
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        customer_id = int(input("Enter customer ID: "))
+        delete.delete_customer(customer_id)
+    elif choice == '2':
+        supplier_id = int(input("Enter supplier ID: "))
+        delete.delete_supplier(supplier_id)
+    elif choice == '3':
+        product_id = int(input("Enter product ID: "))
+        delete.delete_product(product_id)
+    elif choice == '4':
+        order_id = int(input("Enter order ID: "))
+        delete.delete_order(order_id)
+    else:
+        print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()
