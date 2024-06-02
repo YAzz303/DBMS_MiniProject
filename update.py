@@ -45,7 +45,7 @@ def update_order_status(order_id, field, new_value):
             product_id = cursor.fetchone()[0]
 
             # Decrease the stock by one
-            decrease_stock_query = "UPDATE Product SET stock = stock - 1 WHERE product_id = %s"
+            decrease_stock_query = "UPDATE Product SET in_stock = in_stock - 1 WHERE product_id = %s"
             cursor.execute(decrease_stock_query, (product_id,))
         else: 
             query = "UPDATE `Order` SET status=%s WHERE order_id = %s"
@@ -54,8 +54,7 @@ def update_order_status(order_id, field, new_value):
         price_query = "SELECT price FROM Product WHERE product_id IN (SELECT product_id FROM `Order` WHERE order_id = %s)"
         cursor.execute(price_query, (order_id,))
         product_price = cursor.fetchone()[0]
-        amount = new_value * product_price        
-
+        amount = int(new_value) * int(product_price)        
         query = "UPDATE `Order` SET quantity=%s, amount=%s WHERE order_id=%s"
         cursor.execute(query, (new_value, amount, order_id))
 
