@@ -69,16 +69,13 @@ def view_orders():
     view_window = tk.Toplevel()
     view_window.title("View Orders")
 
-    tree = ttk.Treeview(view_window, columns=("ID", "Customer ID", "Product ID", "Quantity", "Amount", "Status", "Created At", "Updated At", "Shipping Date"), show="headings")
-    tree.heading("ID", text="ID")
-    tree.heading("Customer ID", text="Customer ID")
-    tree.heading("Product ID", text="Product ID")
-    tree.heading("Quantity", text="Quantity")
-    tree.heading("Amount", text="Amount")
-    tree.heading("Status", text="Status")
-    tree.heading("Created At", text="Created At")
-    tree.heading("Updated At", text="Updated At")
-    tree.heading("Shipping Date", text="Shipping Date")
+    columns = ("ID", "Customer ID", "Product ID", "Quantity", "Amount", "Status", "Created At", "Updated At", "Shipping Date")
+    tree = ttk.Treeview(view_window, columns=columns, show="headings")
+
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, width=100)  # Set the column width to ensure all columns are visible
+
     tree.pack(fill=tk.BOTH, expand=True)
 
     connection = create_connection()
@@ -86,4 +83,5 @@ def view_orders():
     connection.close()
 
     for order in orders:
+        # print(order)  # Debug print to ensure the data includes shipping_date
         tree.insert("", tk.END, values=order)

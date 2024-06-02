@@ -37,7 +37,7 @@ def insert_order(customer_id, product_id, quantity, status, shipping_date):
     price_query = "SELECT price FROM Product WHERE product_id = %s"
     cursor.execute(price_query, (product_id,))
     product_price = cursor.fetchone()[0]
-    amount = quantity * product_price
+    amount = int(quantity) * int(product_price)
 
     query = "INSERT INTO `Order` (customer_id, product_id, quantity, status, amount, shipping_date) VALUES (%s, %s, %s, %s, %s, %s)"
     cursor.execute(query, (customer_id, product_id, quantity, status, amount, shipping_date))

@@ -107,7 +107,7 @@ def add_order():
     status_entry = tk.Entry(add_window)
     status_entry.grid(row=3, column=1)
 
-    tk.Label(add_window, text="Shipping Date:").grid(row=4, column=0)
+    tk.Label(add_window, text="Shipping Date (YYYY-MMMM-DD):").grid(row=4, column=0)
     shipping_date_entry = tk.Entry(add_window)
     shipping_date_entry.grid(row=4, column=1)
 
