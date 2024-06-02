@@ -11,7 +11,7 @@ def read_table(table_name):
         'Customer': [12, 15, 20, 25, 25, 25],
         'Supplier': [12, 15, 20, 25],
         'Product': [12, 15, 15, 12, 10, 10],
-        '`Order`': [12, 12, 12, 25, 25, 10, 15, 10]
+        '`Order`': [12, 12, 12, 10, 15, 10, 25, 25, 10]
     }
     
     # Define table headings

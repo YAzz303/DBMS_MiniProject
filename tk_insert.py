@@ -6,6 +6,7 @@ def insert_customer(name, address, email):
     query = "INSERT INTO Customer (name, address, email) VALUES (%s, %s, %s)"
     cursor.execute(query, (name, address, email))
     connection.commit()
+    print("Customer inserted successfully")
     cursor.close()
     connection.close()
 
@@ -28,8 +29,6 @@ def insert_product(category, name, supplier_id, price, in_stock):
     print("Product inserted successfully")
     cursor.close()
     connection.close()
-
-from db import create_connection
 
 def insert_order(customer_id, product_id, quantity, status, shipping_date):
     connection = create_connection()

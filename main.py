@@ -2,6 +2,8 @@ import insert
 from read import read_table
 import update
 import delete
+import tkinter as tk
+from tkinter import ttk
 
 
 def main():
