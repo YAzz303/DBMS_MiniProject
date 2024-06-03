@@ -103,21 +103,17 @@ def add_order():
     quantity_entry = tk.Entry(add_window)
     quantity_entry.grid(row=2, column=1)
 
-    tk.Label(add_window, text="Status:").grid(row=3, column=0)
-    status_entry = tk.Entry(add_window)
-    status_entry.grid(row=3, column=1)
-
-    tk.Label(add_window, text="Shipping Date (YYYY-MMMM-DD):").grid(row=4, column=0)
+    tk.Label(add_window, text="Shipping Date (YYYY-MM-DD):").grid(row=3, column=0)
     shipping_date_entry = tk.Entry(add_window)
-    shipping_date_entry.grid(row=4, column=1)
+    shipping_date_entry.grid(row=3, column=1)
 
     def submit_order():
         customer_id = customer_id_entry.get()
         product_id = product_id_entry.get()
         quantity = quantity_entry.get()
-        status = status_entry.get()
+        status = "pending"  # Automatically set the status to "pending"
         shipping_date = shipping_date_entry.get()
         tk_insert.insert_order(customer_id, product_id, quantity, status, shipping_date)
         add_window.destroy()
 
-    tk.Button(add_window, text="Submit", command=submit_order).grid(row=5, column=0, columnspan=2)
+    tk.Button(add_window, text="Submit", command=submit_order).grid(row=4, column=0, columnspan=2)
